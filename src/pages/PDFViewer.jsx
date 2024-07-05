@@ -16,7 +16,12 @@ const PDFViewer = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const onFileChange = (event) => {
-    setFile(event.target.files[0]);
+    const selectedFile = event.target.files[0];
+    if (selectedFile && selectedFile.type === "application/pdf") {
+      setFile(selectedFile);
+    } else {
+      toast.error("Please select a valid PDF file.");
+    }
   };
 
   const onDocumentLoadSuccess = ({ numPages }) => {
