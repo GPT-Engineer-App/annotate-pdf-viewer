@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
+import PDFViewer from "./pages/PDFViewer";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Home } from "lucide-react";
@@ -24,7 +25,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Index />} />
-              {/* Add more routes here as needed */}
+              <Route path="/pdf-viewer" element={<PDFViewer />} />
             </Route>
           </Routes>
         </Router>
