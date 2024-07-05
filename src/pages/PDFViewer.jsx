@@ -3,6 +3,7 @@ import { Document, Page } from "react-pdf";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 
@@ -20,6 +21,11 @@ const PDFViewer = () => {
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
+  };
+
+  const onDocumentLoadError = (error) => {
+    toast.error("Failed to load PDF. Please try again.");
+    console.error("Error loading PDF:", error);
   };
 
   const goToPrevPage = () => {
@@ -59,6 +65,7 @@ const PDFViewer = () => {
             <Document
               file={file}
               onLoadSuccess={onDocumentLoadSuccess}
+              onLoadError={onDocumentLoadError}
               className="mx-auto"
             >
               <Page pageNumber={pageNumber} />

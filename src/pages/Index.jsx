@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { toast } from "sonner";
 
 const Index = () => {
   const [file, setFile] = useState(null);
@@ -20,6 +21,11 @@ const Index = () => {
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
+  };
+
+  const onDocumentLoadError = (error) => {
+    toast.error("Failed to load PDF. Please try again.");
+    console.error("Error loading PDF:", error);
   };
 
   const goToPrevPage = () => {
@@ -59,6 +65,7 @@ const Index = () => {
             <Document
               file={file}
               onLoadSuccess={onDocumentLoadSuccess}
+              onLoadError={onDocumentLoadError}
               className="mx-auto"
             >
               <Page pageNumber={pageNumber} />
